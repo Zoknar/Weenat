@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  WebApi:
+    build: .
+    command: gunicorn --reload --bind 0.0.0.0:8080 manage:app
+    container_name: fhoenix_dev
+    restart: always
+    environment:
+      APP_NAME: Fhoenix
+      MYSQL_HOST: mysql
+      MYSQL_USER: USER
+      MYSQL_PASSWORD: PASSWORD
+      MYSQL_DB: DATABASE
+    expose:
+      - 8080
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: PASSWORD
+      MYSQL_DATABASE: DATABASE
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+    volumes:
+      - ./mysql:/var/lib/mysql ##Si besoin de conserver les données
