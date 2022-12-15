@@ -39,4 +39,6 @@ def summary():
 
     # Looking for values since
 
+    # Computing aggregates
+
     return values.to_json(orient="records")  # Needs reworks to get the right format
